@@ -37,6 +37,8 @@ router.post('/auth', (req, res, next) => {
     req.body.email,
     req.body.password
   ];
+  console.log(req.body.password);
+  console.log(req.body.email);
   db.call('auth', params, (err, results) => {
     if(err){
       res.statusCode=400,

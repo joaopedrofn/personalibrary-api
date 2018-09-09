@@ -35,6 +35,28 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(cors());
+
+// ## CORS middleware
+// 
+// see: http://stackoverflow.com/questions/7067966/how-to-allow-cors-in-express-nodejs
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE', 'OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next()
+};
+app.use(allowCrossDomain);
+// app.use((req, res, next) => {
+//   req.body = JSON.parse(req.body);
+//   next();
+// });
+module.exports = function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header("Access-Control-Allow-Methods", "GET, POST", "PUT", "DELETE", "OPTIONS");
+
+  next();
+};
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/books', booksRouter);
